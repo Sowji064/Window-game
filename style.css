@@ -1,0 +1,17 @@
+#windowArea {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  cursor: pointer;
+  margin: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
+}
+.window {
+  width: 100px;
+  height: 150px;
+  background-color: rgb(185, 179, 179);
+  padding: 15px;
+  margin: 15px;
+}
