@@ -1,40 +1,58 @@
-$(document).ready(function () {
+window.onload = () => {
   let totalWindows = 9;
-  let fragment = [];
+
   for (let i = 0; i < totalWindows; i++) {
-    fragment.push('<div class="window" id="' + i + '"></div>');
+    var newDiv = document.createElement("div");
+    newDiv.id = i;
+    newDiv.className = "window";
+    newDiv.addEventListener(
+      "click",
+      function () {
+        disappear(i);
+      },
+      false
+    );
+    document.getElementById("windowArea").append(newDiv);
   }
-  fragment.join(",");
-  $("#windowArea").html(fragment);
-
-  //onclick disappear
-  $(".window").click(function () {
-    let array = $(".window");
-
-    let index = 0;
-    for (let j = 0; j < array.length; j++) {
-      if (array[j] === $(this)[0]) {
-        index = j;
-        break;
-      }
-    }
-    if (index === arr) {
-      $(this).remove();
-    }
-  });
-
   //running function every sec
   setInterval(activateWindow, 1000);
-});
+};
+//onclick disappear
+function disappear(index) {
+  //remove element
+  if (index === arr) {
+    document.getElementById(index).remove();
+  }
+  //creating all elements by deducting the removed elemnet
+  let totalWindows = document.getElementsByClassName("window").length;
+  document.getElementById("windowArea").innerHTML = "";
+  for (let i = 0; i < totalWindows; i++) {
+    var newDiv = document.createElement("div");
+    newDiv.id = i;
+    newDiv.className = "window";
+    newDiv.addEventListener(
+      "click",
+      function () {
+        disappear(i);
+      },
+      false
+    );
+    document.getElementById("windowArea").append(newDiv);
+  }
+}
 
+//gloable array
 var arr = 0;
 //fnuction to change background colour
 function activateWindow() {
-  if ($(".window").length > 0) {
-    $(".window").css("background-color", "grey");
-    let randomNumber = Math.floor(Math.random() * $(".window").length);
-    let randomWindow = $(".window")[randomNumber];
-    $(randomWindow).css("background-color", "yellow");
+  let totalWindows = document.getElementsByClassName("window");
+  if (totalWindows.length > 0) {
+    for (var i = 0; i < totalWindows.length; i++) {
+      totalWindows[i].style.backgroundColor = "grey";
+    }
+    let randomNumber = Math.floor(Math.random() * totalWindows.length);
+    let randomWindow = totalWindows[randomNumber];
+    randomWindow.style.backgroundColor = "yellow";
     arr = randomNumber;
     //console.log(arr);
   } else {
